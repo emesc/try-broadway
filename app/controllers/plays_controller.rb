@@ -26,7 +26,7 @@ class PlaysController < ApplicationController
   end
 
   def update
-    if @play.update_attributes(play_params)
+    if @play.update(play_params)
       redirect_to play_path(@play)
     else
       render 'edit'
