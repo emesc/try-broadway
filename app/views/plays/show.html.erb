@@ -11,6 +11,12 @@
       <div class="average-review-rating" data-score=<%= @average_review %>></div>
       <span class="number-of-reviews">Out of <%= pluralize(@play.reviews.count, 'review') %></span>
       <p class="play-desc"><%= @play.description %></p>
+      <div class="links btn-group">
+        <% if user_signed_in? && @play.user_id == current_user.id %>
+          <%= link_to 'Edit', edit_play_path(@play), class: 'btn btn-custom' %>
+          <%= link_to 'Delete', play_path(@play), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-custom' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -19,19 +25,13 @@
   <div class="col-md-12">
     <div class="reviews">
       <h1>Reviews</h1>
-      <%= render @play.reviews %>
       <div>
         <%= link_to 'Add Reviews', new_play_review_path(@play), class: 'btn-custom' %>
       </div>
+      <br>
+      <%= render @play.reviews %>
     </div>
   </div>
-</div>
-
-<div class="links btn-group">
-  <% if user_signed_in? && @play.user_id == current_user.id %>
-    <%= link_to 'Edit', edit_play_path(@play), class: 'btn btn-custom' %>
-    <%= link_to 'Delete', play_path(@play), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-custom' %>
-  <% end %>
 </div>
   
 <script>
